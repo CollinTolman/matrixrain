@@ -14,12 +14,17 @@ project "MatrixRain"
 
     objdir "bin-int/%{cfg.buildcfg}/%{prj.name}"
     targetdir "bin/%{cfg.buildcfg}/%{prj.name}"
+    debugdir "bin/%{cfg.buildcfg}/%{prj.name}"
 
     files { "%{prj.name}/**.h", "%{prj.name}/*.cpp" }
 
     includedirs { "vendor/SFML/include" }
     libdirs { "vendor/SFML/lib" }
     defines { "SFML_STATIC" }
+
+    postbuildcommands {
+        "{COPY} res/ ../bin/%{cfg.buildcfg}/%{prj.name}/res"
+    }    
 
     filter "configurations:Debug"
         defines { "_DEBUG" }
@@ -32,6 +37,4 @@ project "MatrixRain"
         symbols "Off"
         optimize "On"
         links { "sfml-system-s", "sfml-graphics-s", "sfml-window-s", "freetype", "opengl32", "gdi32", "winmm"  }
-        postbuildcommands {
-            "{COPY} res/ ../bin/%{cfg.buildcfg}/%{prj.name}/res"
-        }
+        

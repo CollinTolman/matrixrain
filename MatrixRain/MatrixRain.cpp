@@ -66,6 +66,7 @@ bool mr::MatrixRain::Start()
 		return false;
 	}
 
+
 	if (!LoadShader())
 	{
  		Error("Couldn't load the shader");
